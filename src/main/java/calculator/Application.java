@@ -8,7 +8,32 @@ public class Application {
 
         String input = Console.readLine();
 
-        String[] splitedInput = input.split("[,:]");
+        boolean isInputIncludeHeader = false;
+
+        //입력의 맨 앞부분에 "//"와 "\n" 사이에 커스텀 구분자로 사용할 문자를 입력할 수 있다.
+        StringBuilder delimitersRegx = new StringBuilder("[,:");
+        if(input.startsWith("//")) {
+            isInputIncludeHeader = true;
+
+            char customDelimiter = input.charAt(2);
+
+            //커스텀 구분자가 알파벳이라면 정규식 표현상에서 이스케이프 문자를 앞에 붙이면 안된다.
+            if(!Character.isAlphabetic(customDelimiter)) {
+                delimitersRegx.append("\\");
+            }
+            delimitersRegx.append(customDelimiter);
+        }
+        delimitersRegx.append("]");
+
+        String inputWithoutHeader;
+
+        if(isInputIncludeHeader) {
+            inputWithoutHeader = input.split("\\\\n")[1];
+        } else {
+            inputWithoutHeader = input;
+        }
+
+        String[] splitedInput = inputWithoutHeader.split(delimitersRegx.toString());
 
         int inputSize = splitedInput.length;
 
