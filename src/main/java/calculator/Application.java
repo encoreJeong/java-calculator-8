@@ -14,8 +14,14 @@ public class Application {
 
         Integer[] parsedInput = new Integer[inputSize];
 
-        for(int i = 0; i < splitedInput.length; i++) {
-            parsedInput[i] = Integer.parseInt(splitedInput[i]);
+        try {
+            for(int i = 0; i < splitedInput.length; i++) {
+                parsedInput[i] = Integer.parseInt(splitedInput[i]);
+                if(parsedInput[i] < 0)
+                    throw new IllegalArgumentException("입력값은 양수여야 합니다. : " + splitedInput[i]);
+            }
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자가 아닌 입력이 포함 돼있습니다. " + e.getMessage());
         }
 
         int sum = 0;
