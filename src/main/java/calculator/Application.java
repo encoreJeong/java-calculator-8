@@ -52,6 +52,7 @@ public class Application {
 
         try {
             for(int i = 0; i < splitedInput.length; i++) {
+                if(splitedInput[i].isEmpty()) {splitedInput[i] = "0";}
                 parsedInput[i] = Integer.parseInt(splitedInput[i]);
                 if(parsedInput[i] < 0)
                     throw new IllegalArgumentException("입력값은 양수여야 합니다. : " + splitedInput[i]);
