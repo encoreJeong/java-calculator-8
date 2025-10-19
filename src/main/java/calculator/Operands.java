@@ -14,9 +14,9 @@ public class Operands {
     public static Operands of(String rawInput, Delimiters delimiters) {
         String inputWithoutHeader;
 
-        if(delimiters.hasCustomDelimiter()) {
-            //정규표현식에 리터럴 "\n" 을 넘기기 위해선 두번의 이스케이프가 필요함에 유의
-            inputWithoutHeader = rawInput.split(Delimiters.ESCAPE + Delimiters.HEADER_CLOSE_TAG)[1];
+        if(hasHeader(rawInput)) {
+            //substring의 인자로 가능한 최대 크기는 해당 문자열의 길이이다. 이 경우, "" 빈 문자열이 리턴된다.
+            inputWithoutHeader = rawInput.substring(rawInput.indexOf(Delimiters.HEADER_CLOSE_TAG) + Delimiters.HEADER_CLOSE_TAG.length());
         } else {
             inputWithoutHeader = rawInput;
         }
@@ -40,6 +40,10 @@ public class Operands {
         }
 
         return new Operands(operands);
+    }
+
+    private static boolean hasHeader(String rawInput) {
+        return rawInput.contains(Delimiters.HEADER_CLOSE_TAG);
     }
 
     public Integer count() {
