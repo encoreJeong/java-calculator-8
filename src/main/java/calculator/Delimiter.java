@@ -3,6 +3,7 @@ package calculator;
 import java.util.Optional;
 
 public class Delimiter {
+
     private final Character delimiter;
 
     private Delimiter(Character delimiter) {
@@ -12,7 +13,7 @@ public class Delimiter {
     public static Optional<Delimiter> valueOf(String delimiter) {
         validateDelimiter(delimiter);
 
-        if(delimiter.isEmpty()) {
+        if (delimiter.isEmpty()) {
             return Optional.empty();
         }
 
@@ -20,7 +21,7 @@ public class Delimiter {
     }
 
     private static void validateDelimiter(String delimiter) {
-        if(delimiter.length() > 2) {
+        if (delimiter.length() > 2) {
             throw new IllegalArgumentException("구분자는 1개의 문자여야 합니다." + delimiter);
         }
     }

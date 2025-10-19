@@ -1,7 +1,6 @@
 package calculator;
 
 import camp.nextstep.edu.missionutils.Console;
-
 import java.util.NoSuchElementException;
 
 public class StringExpressionIOUtils {

@@ -12,8 +12,8 @@ public class Delimiters {
     public static final String HEADER_OPEN_TAG = "//";
     public static final String HEADER_CLOSE_TAG = "\\n";
     private static final List<Delimiter> DEFAULT_DELIMITERS = Arrays.asList(
-                                                                Delimiter.valueOf(",").get(),
-                                                                Delimiter.valueOf(":").get());
+            Delimiter.valueOf(",").get(),
+            Delimiter.valueOf(":").get());
 
     private final List<Delimiter> delimiters;
 
@@ -26,7 +26,6 @@ public class Delimiters {
         List<Delimiter> delimiters = new ArrayList<>(DEFAULT_DELIMITERS);
 
         getCustomDelimiter(rawInput).ifPresent(delimiters::add);
-
         return new Delimiters(delimiters);
     }
 
@@ -38,8 +37,9 @@ public class Delimiters {
     private static String extractContentBetweenHeaderTags(String rawInput) {
         validateHeaderFormat(rawInput);
 
-        if(rawInput.startsWith(HEADER_OPEN_TAG)) {
-            return rawInput.substring(rawInput.indexOf(HEADER_OPEN_TAG) + HEADER_OPEN_TAG.length(), rawInput.indexOf(HEADER_CLOSE_TAG));
+        if (rawInput.startsWith(HEADER_OPEN_TAG)) {
+            return rawInput.substring(rawInput.indexOf(HEADER_OPEN_TAG) + HEADER_OPEN_TAG.length(),
+                    rawInput.indexOf(HEADER_CLOSE_TAG));
         }
 
         return EMPTY;
@@ -50,7 +50,7 @@ public class Delimiters {
 
         delimiters.forEach(delimiter -> {
             //커스텀 구분자가 알파벳이거나 숫자라면 정규식 표현상에서 이스케이프 문자를 앞에 붙이면 안된다.
-            if(!delimiter.isLetterOrDigit()) {
+            if (!delimiter.isLetterOrDigit()) {
                 delimitersRegx.append(ESCAPE);
             }
             delimitersRegx.append(delimiter.toCharacter());
@@ -65,7 +65,7 @@ public class Delimiters {
     }
 
     private static void validateHeaderFormat(String rawInput) {
-        if(isContainsHeaderOpenTag(rawInput)) {
+        if (isContainsHeaderOpenTag(rawInput)) {
             validateHeaderContainsCloseTag(rawInput);
         }
     }
@@ -75,7 +75,8 @@ public class Delimiters {
     }
 
     private static void validateHeaderContainsCloseTag(String rawInput) {
-        if (!rawInput.contains(HEADER_CLOSE_TAG))
+        if (!rawInput.contains(HEADER_CLOSE_TAG)) {
             throw new IllegalArgumentException("커스텀 구분자 지정 형식이 잘못 됐습니다." + rawInput);
+        }
     }
 }

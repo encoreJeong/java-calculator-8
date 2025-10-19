@@ -14,9 +14,10 @@ public class Operands {
     public static Operands of(String rawInput, Delimiters delimiters) {
         String inputWithoutHeader;
 
-        if(hasHeader(rawInput)) {
+        if (hasHeader(rawInput)) {
             //substring의 인자로 가능한 최대 크기는 해당 문자열의 길이이다. 이 경우, "" 빈 문자열이 리턴된다.
-            inputWithoutHeader = rawInput.substring(rawInput.indexOf(Delimiters.HEADER_CLOSE_TAG) + Delimiters.HEADER_CLOSE_TAG.length());
+            inputWithoutHeader = rawInput.substring(
+                    rawInput.indexOf(Delimiters.HEADER_CLOSE_TAG) + Delimiters.HEADER_CLOSE_TAG.length());
         } else {
             inputWithoutHeader = rawInput;
         }
@@ -26,12 +27,15 @@ public class Operands {
         List<Integer> operands = new ArrayList<>();
 
         try {
-            for(int i = 0; i < splitedInput.length; i++) {
-                if(splitedInput[i].isEmpty()) {splitedInput[i] = "0";}
+            for (int i = 0; i < splitedInput.length; i++) {
+                if (splitedInput[i].isEmpty()) {
+                    splitedInput[i] = "0";
+                }
 
                 Integer parsedInput = Integer.parseInt(splitedInput[i]);
-                if(parsedInput < 0)
+                if (parsedInput < 0) {
                     throw new IllegalArgumentException("입력값은 양수여야 합니다. : " + splitedInput[i]);
+                }
 
                 operands.add(parsedInput);
             }
