@@ -15,7 +15,8 @@ public class Operands {
         String inputWithoutHeader;
 
         if(delimiters.hasCustomDelimiter()) {
-            inputWithoutHeader = rawInput.split(delimiters.HEADER_CLOSE_TAG)[1];
+            //정규표현식에 리터럴 "\n" 을 넘기기 위해선 두번의 이스케이프가 필요함에 유의
+            inputWithoutHeader = rawInput.split(Delimiters.ESCAPE + Delimiters.HEADER_CLOSE_TAG)[1];
         } else {
             inputWithoutHeader = rawInput;
         }
