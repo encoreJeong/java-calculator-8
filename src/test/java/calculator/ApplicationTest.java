@@ -25,6 +25,29 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void 기본기능_구분자사이가_비어있는경우_성공() {
+        assertSimpleTest(() -> {
+            run("1,,2,3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 기본기능_구분자가_먼저_등장_성공() {
+        assertSimpleTest(() -> {
+            run(",1,2,3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 기본기능_구분자가_마지막에_등장_성공() {
+        assertSimpleTest(() -> {
+            run("1,2,3,");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
 
     @Test
     void 커스텀_구분자_사용() {
