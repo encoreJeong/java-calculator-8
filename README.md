@@ -49,3 +49,7 @@
 1. “//” , “\n” 사이에 여러 문자가 포함되는 경우
 
 `IllegalArgumentException` 발생시킨 후 애플리케이션 종료
+
+2. 커스텀 구분자에 숫자가 구분자로 지정되는 경우
+
+`IllegalArgumentException` 발생시킨 후 애플리케이션 종료
