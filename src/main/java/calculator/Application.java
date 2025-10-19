@@ -28,8 +28,8 @@ public class Application {
 
             char verifiedCustomDelimiter = customDelimiter.charAt(0);
 
-            //커스텀 구분자가 알파벳이라면 정규식 표현상에서 이스케이프 문자를 앞에 붙이면 안된다.
-            if(!Character.isAlphabetic(verifiedCustomDelimiter)) {
+            //커스텀 구분자가 알파벳이거나 숫자라면 정규식 표현상에서 이스케이프 문자를 앞에 붙이면 안된다.
+            if(!Character.isLetterOrDigit(verifiedCustomDelimiter) ) {
                 delimitersRegx.append("\\");
             }
             delimitersRegx.append(verifiedCustomDelimiter);
