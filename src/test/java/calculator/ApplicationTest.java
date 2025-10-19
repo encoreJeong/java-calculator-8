@@ -18,6 +18,14 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 기본기능_빈_입력_성공() {
+        assertSimpleTest(() -> {
+            run("");
+            assertThat(output()).contains("결과 : 0");
+        });
+    }
+
+    @Test
     void 기본기능_두자리숫자_성공() {
         assertSimpleTest(() -> {
             run("10,20:30");
@@ -54,6 +62,22 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() -> {
             run("//;\\n1");
             assertThat(output()).contains("결과 : 1");
+        });
+    }
+
+    @Test
+    void 커스텀_구분자_빈문자열_성공() {
+        assertSimpleTest(() -> {
+            run("//\\n1,2,3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 커스텀_구분자_피연산자_없음_성공() {
+        assertSimpleTest(() -> {
+            run("//;\\n");
+            assertThat(output()).contains("결과 : 0");
         });
     }
 
