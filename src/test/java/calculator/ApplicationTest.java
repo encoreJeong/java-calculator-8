@@ -18,6 +18,15 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 기본기능_두자리숫자_성공() {
+        assertSimpleTest(() -> {
+            run("10,20:30");
+            assertThat(output()).contains("결과 : 60");
+        });
+    }
+
+
+    @Test
     void 커스텀_구분자_사용() {
         assertSimpleTest(() -> {
             run("//;\\\\n1");
@@ -44,7 +53,7 @@ class ApplicationTest extends NsTest {
     @Test
     void 커스텀_구분자_숫자_사용() {
         assertSimpleTest(() -> {
-            run("//1\\\\n1213");
+            run("//1\\\\n213");
             assertThat(output()).contains("결과 : 5");
         });
     }
