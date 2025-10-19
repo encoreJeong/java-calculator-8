@@ -2,6 +2,10 @@ package calculator;
 import camp.nextstep.edu.missionutils.Console;
 
 public class Application {
+
+    public static String HEADER_OPEN_TAG = "//";
+    public static String HEADER_CLOSE_TAG = "\\\\n";
+
     public static void main(String[] args) {
 
         System.out.println("덧셈할 문자열을 입력해 주세요.");
@@ -12,23 +16,30 @@ public class Application {
 
         //입력의 맨 앞부분에 "//"와 "\n" 사이에 커스텀 구분자로 사용할 문자를 입력할 수 있다.
         StringBuilder delimitersRegx = new StringBuilder("[,:");
-        if(input.startsWith("//")) {
+        if(input.startsWith(HEADER_OPEN_TAG)) {
+            if(!input.contains(HEADER_CLOSE_TAG))
+                throw new IllegalArgumentException("커스텀 구분자 지정 형식이 잘못 됐습니다." + input);
+
             isInputIncludeHeader = true;
 
-            char customDelimiter = input.charAt(2);
+            String customDelimiter = input.substring(input.indexOf(HEADER_OPEN_TAG) + HEADER_OPEN_TAG.length(), input.indexOf(HEADER_CLOSE_TAG));
+            if(customDelimiter.length() > 1)
+                throw new IllegalArgumentException("커스텀 구분자 지정 형식이 잘못 됐습니다." + customDelimiter);
+
+            char verifiedCustomDelimiter = customDelimiter.charAt(0);
 
             //커스텀 구분자가 알파벳이라면 정규식 표현상에서 이스케이프 문자를 앞에 붙이면 안된다.
-            if(!Character.isAlphabetic(customDelimiter)) {
+            if(!Character.isAlphabetic(verifiedCustomDelimiter)) {
                 delimitersRegx.append("\\");
             }
-            delimitersRegx.append(customDelimiter);
+            delimitersRegx.append(verifiedCustomDelimiter);
         }
         delimitersRegx.append("]");
 
         String inputWithoutHeader;
 
         if(isInputIncludeHeader) {
-            inputWithoutHeader = input.split("\\\\n")[1];
+            inputWithoutHeader = input.split(HEADER_CLOSE_TAG)[1];
         } else {
             inputWithoutHeader = input;
         }
