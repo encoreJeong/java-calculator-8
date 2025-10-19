@@ -49,6 +49,22 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test()
+    void 커스텀구분자_2개이상_예외_테스트() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//abc\\\\n1a2a3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test()
+    void 커스텀구분자_형식_이상_예외_테스트() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//abc1a2a3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
