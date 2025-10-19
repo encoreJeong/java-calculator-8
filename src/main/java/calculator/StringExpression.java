@@ -2,12 +2,12 @@ package calculator;
 
 public class StringExpression {
 
-    private Delimiters delimiter;
+    private Delimiters delimiters;
     private Operands operands ;
 
     private StringExpression (String rawInput) {
-        delimiter = Delimiters.from(rawInput);
-        operands = Operands.of(rawInput, delimiter);
+        delimiters = Delimiters.from(rawInput);
+        operands = Operands.of(rawInput, delimiters);
     }
 
     public static StringExpression valueOf(String rawInput) {
