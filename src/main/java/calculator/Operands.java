@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Operands {
 
-    private List<Integer> operands;
+    private final List<Integer> operands;
 
     private Operands(List<Integer> operands) {
         this.operands = operands;

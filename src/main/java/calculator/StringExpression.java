@@ -2,8 +2,8 @@ package calculator;
 
 public class StringExpression {
 
-    private Delimiters delimiters;
-    private Operands operands ;
+    private final Delimiters delimiters;
+    private final Operands operands;
 
     private StringExpression (String rawInput) {
         delimiters = Delimiters.from(rawInput);
